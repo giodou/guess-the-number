@@ -11,6 +11,8 @@ export const theme = {
         backgroundGradientInitial: '#3A182F',
         backgroundGradientFinal: '#D2B031',
         optionButtom: '#71003F',
-        optionButtomBorder: '#B43E8F'
+        optionButtomBorder: '#B43E8F',
+        guessOptionButtomBorder: 'purple'
+
     }
 }

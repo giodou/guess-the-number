@@ -23,7 +23,9 @@ export function StartGame() {
 
     function handleConfirm() {
         if (isValidNumber()) {
-            navigation.navigate(SCREENS.OpponentsGuess, { pickedNumber: number });
+            const dataNumber = number;
+            setNumber('');
+            navigation.navigate(SCREENS.OpponentsGuess, { pickedNumber: dataNumber });
         }
     }
 

@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { StartGame } from '../screens/StartGame';
 import { OpponentsGuess } from '../screens/OpponentsGuess';
+import { GameOver } from '../screens/GameOver';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,8 @@ export function Routes() {
             >
                 <Stack.Screen name={SCREENS.StartGame} component={StartGame} />
                 <Stack.Screen name={SCREENS.OpponentsGuess} component={OpponentsGuess} />
+                <Stack.Screen name={SCREENS.GameOver} component={GameOver} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -25,5 +28,6 @@ export function Routes() {
 
 export const SCREENS = {
     OpponentsGuess: "OpponentsGuess",
-    StartGame: "StartGame"
+    StartGame: "StartGame",
+    GameOver: "GameOver"
 }
