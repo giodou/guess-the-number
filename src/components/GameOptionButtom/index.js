@@ -1,6 +1,7 @@
 import {
     Pressable,
-    Text
+    Text,
+    View
 } from 'react-native'
 
 import { style } from './styles';
@@ -13,12 +14,16 @@ import { RectButton } from 'react-native-gesture-handler'
  */
 export function GameOptionButtom(props) {
     return (
-        <Pressable style={style.container} onPress={props.onPress}>
-            <RectButton style={style.pressablePartButtom} >
+        <View style={style.container} >
+            <Pressable
+                style={({ pressed }) => pressed ? [style.pressablePartButtom, style.pressed] : style.pressablePartButtom}
+                onPress={props.onPress}
+            >
                 <Text style={style.title}>
                     {props.title}
                 </Text>
-            </RectButton>
-        </Pressable >
+            </Pressable>
+        </View>
+
     );
 }

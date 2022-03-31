@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderBottomWidth: 3,
     borderColor: theme.colors.boardTitle,
-    marginVertical: 5
+    marginVertical: 8,
+    fontWeight: 'bold'
   }
 });

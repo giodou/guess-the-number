@@ -1,6 +1,7 @@
 import {
     View,
-    Alert
+    Alert,
+    SafeAreaView
 }
     from 'react-native'
 
@@ -38,8 +39,14 @@ export function StartGame() {
     }
 
     function isValidNumber() {
-        if (!number || parseInt(number) < 1 || parseInt(number) > 99) {
-            Alert.alert('Pick a number between 1 and 99');
+        const chosenNumber = parseInt(number);
+
+        if (isNaN(chosenNumber) || chosenNumber < 1 || chosenNumber > 99) {
+            Alert.alert(
+                'Invalid Number',
+                'Pick a number between 1 and 99',
+                [{ text: 'ok...', style: 'destructive', onPress: handleReset }]
+            );
             return false;
         }
         return true;
@@ -47,7 +54,7 @@ export function StartGame() {
 
     return (
         <Background>
-            <View style={style.container}>
+            <SafeAreaView style={style.container}>
                 <ScreenTitle title={"Guess My Number"} />
                 <GuessNumberBoard title={"Enter a Number"}>
                     <Input
@@ -55,17 +62,21 @@ export function StartGame() {
                         value={number}
                     />
                     <View style={style.buttonsContainer}>
-                        <GameOptionButtom
-                            title={"Reset"}
-                            onPress={handleReset}
-                        />
-                        <GameOptionButtom
-                            title={"Confirm"}
-                            onPress={handleConfirm}
-                        />
+                        <View style={style.buttonContainer}>
+                            <GameOptionButtom
+                                title={"Reset"}
+                                onPress={handleReset}
+                            />
+                        </View>
+                        <View style={style.buttonContainer}>
+                            <GameOptionButtom
+                                title={"Confirm"}
+                                onPress={handleConfirm}
+                            />
+                        </View>
                     </View>
                 </GuessNumberBoard>
-            </View>
+            </SafeAreaView>
         </Background>
     );
 }

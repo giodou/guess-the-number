@@ -6,14 +6,12 @@ import { theme } from '../../global/theme'
 
 export const style = StyleSheet.create({
     container: {
-        width: 150,
-        height: 40,
+        height: 60,
         marginVertical: 20,
         backgroundColor: theme.colors.optionButtom,
         borderRadius: 20,
         marginHorizontal: 5,
-        borderWidth: 1,
-        borderColor: theme.colors.optionButtomBorder
+        overflow: 'hidden'
     },
     pressablePartButtom:{
         width: '100%',
@@ -21,6 +19,9 @@ export const style = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    pressed: {
+        backgroundColor: theme.colors.optionButtomBorder
     },
     title: {
         color: theme.colors.screenTitle,

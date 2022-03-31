@@ -7,7 +7,7 @@ export const theme = {
     colors: {
         screenTitle: 'white',
         boardBackground: '#3C0121',
-        boardTitle: '#B78057',
+        boardTitle: '#ddb52f',
         backgroundGradientInitial: '#3A182F',
         backgroundGradientFinal: '#D2B031',
         optionButtom: '#71003F',

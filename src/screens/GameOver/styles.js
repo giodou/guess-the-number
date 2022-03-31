@@ -34,5 +34,9 @@ export const style = StyleSheet.create({
         fontSize: 25,
         color: theme.colors.optionButtom,
         fontFamily: theme.fonts.screenTitle
+    },
+    buttonContainer:{
+        flex: 1,
+        width: 160
     }
 })

@@ -8,7 +8,7 @@ export const style = StyleSheet.create({
     container: {
         marginHorizontal: 30,
         marginBottom: 30,
-        width: '100%',
+        width: '90%',
     },
     pressable:{
         alignItems: 'center',

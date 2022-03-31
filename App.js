@@ -12,6 +12,7 @@ import {
   Roboto_500Medium,
   Roboto_700Bold
 } from '@expo-google-fonts/roboto'
+import { Background } from './src/components/Background';
 
 LogBox.ignoreLogs(
   [
@@ -30,14 +31,14 @@ export default function App() {
     return <AppLoading />;
   } else {
     return (
-      <>
+      <Background>
         <StatusBar
           barStyle="light-content"
           backgroundColor="transparent"
           translucent
         />
         <Routes />
-      </>
+      </Background>
     );
 
   }

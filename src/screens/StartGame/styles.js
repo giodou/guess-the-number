@@ -6,7 +6,7 @@ import { theme } from '../../global/theme'
 
 export const style = StyleSheet.create({
     container: {
-        flex: 1,
+        marginTop: 30,
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
@@ -17,5 +17,8 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'space-between',
         alignItems: 'center',
+    },
+    buttonContainer:{
+        flex: 1
     }
 })

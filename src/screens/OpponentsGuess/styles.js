@@ -16,6 +16,9 @@ export const style = StyleSheet.create({
         alignContent: 'space-between',
         alignItems: 'center',
     },
+    buttonContainer: {
+        flex: 1
+    },
     guessList: {
         width: '100%',
         marginTop: 20

@@ -10,6 +10,7 @@ export const style = StyleSheet.create({
         width: 300,
         marginHorizontal: 30,
         marginVertical: 30,
+        marginTop: 50,
     },
     pressable:{
         alignItems: 'center',

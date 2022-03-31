@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import {
     View,
-    FlatList
+    FlatList,
+    SafeAreaView,
+    Alert
 }
     from 'react-native'
 
@@ -19,109 +21,113 @@ import { OpponentGuessOption } from '../../components/OpponentGuessOption';
 
 import { SCREENS } from '../../routes';
 
+let currentInitialRangeGuessTip = 1;
+let currentFinalRangeGuessTip = 99;
+
+function setCurrentInitialRangeGuessTip(newInitialGuess) {
+    currentInitialRangeGuessTip = newInitialGuess;
+}
+
+function setCurrentFinalRangeGuessTip(newFinalGuess) {
+    currentFinalRangeGuessTip = newFinalGuess;
+}
+
 export function OpponentsGuess() {
     const route = useRoute();
     const navigation = useNavigation();
 
-    const { pickedNumber } = route.params;
-
+    let { pickedNumber } = route.params;
     const [oponnentPickedNumbers, setOponnentPickedNumbers] = useState([]);
-    const [currentInitialRangeGuessTip, setCurrentInitialRangeGuessTip] = useState('');
-    const [currentFinalRangeGuessTip, setCurrentFinalRangeGuessTip] = useState('');
+    const [currentGuess, setCurrentGuess] = useState(false);
 
     function getRandomGuessBetweenRange(min, max) {
-        console.log(min, max)
         return parseInt(Math.floor(Math.random() * (max - min)) + min);
     }
 
     function handleOpponentNewGuess() {
-        const currentOpponentsGuess = [...oponnentPickedNumbers];
+        setOponnentPickedNumbers([currentGuess, ...oponnentPickedNumbers]);
 
-        setOponnentPickedNumbers([getNewOpponentGuess(), ...currentOpponentsGuess]);
-        checkGameOver();
+        const newGuess = getRandomGuessBetweenRange(currentInitialRangeGuessTip, currentFinalRangeGuessTip);
+
+        setCurrentGuess(newGuess);
+        checkGameOver(newGuess);
     }
 
-    function getNewOpponentGuess() {
-        const totalOpponentsGuess = oponnentPickedNumbers ? oponnentPickedNumbers.length + 1 : 1;
-
-        const newGuess = {
-            guess: getRandomGuessBetweenRange(currentInitialRangeGuessTip, currentFinalRangeGuessTip),
-            try: totalOpponentsGuess
-        };
-
-        return newGuess;
-    }
-
-    function handleTipForWrongGuess(isLower) {
-        console.log(isLower);
-
-        if (isLower) {
-            setCurrentFinalRangeGuessTip(oponnentPickedNumbers[0] ? oponnentPickedNumbers[0].guess - 1 : 99);
-        } else {
-            setCurrentInitialRangeGuessTip(oponnentPickedNumbers[0] ? oponnentPickedNumbers[0].guess + 1 : 1);
+    function handleTipForWrongGuess(isPickedNumberLower) {
+        if ((isPickedNumberLower && pickedNumber > currentGuess)
+            || (!isPickedNumberLower && pickedNumber < currentGuess)) {
+            Alert.alert('Ei man...', 'This is not cool');
+            return;
         }
 
-        setTimeout(function () {
-            handleOpponentNewGuess();
-        }, 150)
+        if (isPickedNumberLower) {
+            setCurrentFinalRangeGuessTip(currentGuess - 1);
+        } else {
+            setCurrentInitialRangeGuessTip(currentGuess + 1);
+        }
 
+        handleOpponentNewGuess();
     }
 
     function handleGameOver() {
-        navigation.navigate(SCREENS.GameOver, { gameInfo: { numberOfTrys: oponnentPickedNumbers.length, pickedNumber } });
+        navigation.navigate(SCREENS.GameOver, { gameInfo: { numberOfTrys: oponnentPickedNumbers.length+1, pickedNumber } });
+
+        currentFinalRangeGuessTip = 99;
+        currentInitialRangeGuessTip = 1;
+        pickedNumber = false;
+        setOponnentPickedNumbers([]);
     }
 
-    function checkGameOver() {
-        if (oponnentPickedNumbers.length > 0 && oponnentPickedNumbers[0].guess === parseInt(pickedNumber)) {
+    function checkGameOver(guess) {
+        if (guess === parseInt(pickedNumber)) {
             handleGameOver();
         }
     }
 
-    useEffect(() => {
-        setCurrentInitialRangeGuessTip(1);
-        setCurrentFinalRangeGuessTip(99);
-
-        setTimeout(function () {
-            handleOpponentNewGuess();
-        }, 150)
-
-    }, [])
+    if (!currentGuess) {
+        const newGuess = getRandomGuessBetweenRange(currentInitialRangeGuessTip, currentFinalRangeGuessTip);
+        setCurrentGuess(newGuess);
+    }
 
     return (
         <Background>
-            <View style={style.container}>
+            <SafeAreaView style={style.container}>
                 <ScreenTitle title={"Opponent's Guess"} />
 
                 <ScreenPickedNumber
-                    pickerNumber={oponnentPickedNumbers[0] ? oponnentPickedNumbers[0].guess : ''}
+                    pickerNumber={currentGuess}
                 />
 
                 <GuessNumberBoard title={"Higher or Lower?"}>
                     <View style={style.buttonsContainer}>
-                        <GameOptionButtom
-                            title={"-"}
-                            onPress={() => handleTipForWrongGuess(true)}
-                        />
-                        <GameOptionButtom
-                            title={"+"}
-                            onPress={() => handleTipForWrongGuess(false)}
-                        />
+                        <View style={style.buttonContainer}>
+                            <GameOptionButtom
+                                title={"-"}
+                                onPress={handleTipForWrongGuess.bind(this, true)}
+                            />
+                        </View>
+                        <View style={style.buttonContainer}>
+                            <GameOptionButtom
+                                title={"+"}
+                                onPress={handleTipForWrongGuess.bind(this, false)}
+                            />
+                        </View>
                     </View>
                 </GuessNumberBoard>
 
                 <FlatList
                     style={style.guessList}
                     data={oponnentPickedNumbers}
-                    keyExtractor={item => item.try}
-                    renderItem={({ item }) => (
+                    keyExtractor={(item, index) => index}
+                    renderItem={({ item, index }) => (
                         <OpponentGuessOption
-                            guessTry={item.try}
-                            guess={item.guess}
+                            guessTry={index + 1}
+                            guess={item}
                         />
                     )}
                 />
 
-            </View>
+            </SafeAreaView>
         </Background>
     );
 }

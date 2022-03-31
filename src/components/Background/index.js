@@ -21,7 +21,7 @@ export function Background(props) {
                 source={ImageBackgroud}
                 resizeMode="cover"
                 style={styles.image}
-                imageStyle={{opacity: 0.1}}
+                imageStyle={{opacity: 0.15}}
             >
                 {props.children}
             </ImageBackground>

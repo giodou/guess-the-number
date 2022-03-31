@@ -1,7 +1,8 @@
 import {
     View,
     ImageBackground,
-    Text
+    Text,
+    SafeAreaView
 }
     from 'react-native'
 
@@ -30,7 +31,7 @@ export function GameOver() {
 
     return (
         <Background>
-            <View style={style.container}>
+            <SafeAreaView style={style.container}>
                 <ScreenTitle title={"GAME OVER!"} />
 
                 <ImageBackground
@@ -52,19 +53,21 @@ export function GameOver() {
                         rounds to guess the number
                     </Text>
                     <Text style={style.resultText}>
-                    {gameInfo ? gameInfo.pickedNumber : 0}
+                        {gameInfo ? gameInfo.pickedNumber : 0}
                     </Text>
                     <Text style={style.normalText}>
                         .
                     </Text>
                 </View>
 
-                <GameOptionButtom
-                    title={"Start New Game"}
-                    onPress={handleStartNewGame}
-                />
+                <View style={style.buttonContainer}>
+                    <GameOptionButtom
+                        title={"Start New Game"}
+                        onPress={handleStartNewGame}
+                    />
+                </View>
 
-            </View>
+            </SafeAreaView>
         </Background>
     );
 }

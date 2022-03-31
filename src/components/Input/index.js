@@ -12,9 +12,10 @@ export function Input(props){
   return (
     <TextInput 
       style={styles.container}
-      keyboardType="numeric"
+      keyboardType="number-pad"
       onChangeText={props.onChangeText}
       value={props.value}
+      maxLength={2}
     />
   );
 }
