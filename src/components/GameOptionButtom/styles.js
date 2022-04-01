@@ -6,7 +6,7 @@ import { theme } from '../../global/theme'
 
 export const style = StyleSheet.create({
     container: {
-        height: 60,
+        height: 45,
         marginVertical: 20,
         backgroundColor: theme.colors.optionButtom,
         borderRadius: 20,

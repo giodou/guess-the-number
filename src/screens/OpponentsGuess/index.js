@@ -9,6 +9,7 @@ import {
     from 'react-native'
 
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; 
 
 import { style } from './styles';
 
@@ -70,7 +71,7 @@ export function OpponentsGuess() {
     }
 
     function handleGameOver() {
-        navigation.navigate(SCREENS.GameOver, { gameInfo: { numberOfTrys: oponnentPickedNumbers.length+1, pickedNumber } });
+        navigation.navigate(SCREENS.GameOver, { gameInfo: { numberOfTrys: oponnentPickedNumbers.length + 1, pickedNumber } });
 
         currentFinalRangeGuessTip = 99;
         currentInitialRangeGuessTip = 1;
@@ -102,15 +103,17 @@ export function OpponentsGuess() {
                     <View style={style.buttonsContainer}>
                         <View style={style.buttonContainer}>
                             <GameOptionButtom
-                                title={"-"}
                                 onPress={handleTipForWrongGuess.bind(this, true)}
-                            />
+                            >
+                                <Ionicons name="md-remove" size={24} color="white" />
+                            </GameOptionButtom>
                         </View>
                         <View style={style.buttonContainer}>
                             <GameOptionButtom
-                                title={"+"}
                                 onPress={handleTipForWrongGuess.bind(this, false)}
-                            />
+                            >
+                                <Ionicons name="md-add" size={24} color="white" />
+                            </GameOptionButtom>
                         </View>
                     </View>
                 </GuessNumberBoard>

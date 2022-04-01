@@ -20,7 +20,7 @@ export function GameOptionButtom(props) {
                 onPress={props.onPress}
             >
                 <Text style={style.title}>
-                    {props.title}
+                    {props.title || props.children}
                 </Text>
             </Pressable>
         </View>

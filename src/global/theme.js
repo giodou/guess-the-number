@@ -1,8 +1,11 @@
 export const theme = {
     fonts: {
-        screenTitle: 'Roboto_700Bold',
-        boardTitle: 'Roboto_500Medium',
-        optionButtomText:'Roboto_400Regular'
+        // screenTitle: 'Roboto_700Bold',
+        // boardTitle: 'Roboto_500Medium',
+        // optionButtomText:'Roboto_400Regular'
+        screenTitle: 'open-sans-bold',
+        boardTitle: 'open-sans-medium',
+        optionButtomText:'open-sans'
     },
     colors: {
         screenTitle: 'white',
